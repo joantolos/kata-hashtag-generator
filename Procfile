@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar kata-songs-api-src/build/libs/kata-songs-api*.jar
