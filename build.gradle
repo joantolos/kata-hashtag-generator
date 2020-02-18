@@ -1,60 +1,57 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jacoco'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
 buildscript {
+    ext {
+        springBootVersion = '2.2.1.RELEASE'
+        springCloudVersion = 'Hoxton.RELEASE'
+    }
     repositories {
-        jcenter()
         mavenCentral()
-        maven {
-            url "http://repo.spring.io/release"
-        }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-plugins {
-    id 'jacoco'
-    id 'groovy'
+repositories {
+    mavenCentral()
 }
 
-allprojects  {
-    apply plugin: 'java'
-    apply plugin: 'jacoco'
-
-    jacoco {
-        toolVersion = '0.8.5'
-    }
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-    repositories {
-        jcenter()
+dependencyManagement {
+    imports {
+        mavenBom ("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
     }
 }
 
-task rootReport(type: JacocoReport, group: 'Coverage reports') {
-    description = 'Generates an aggregate report from all subprojects'
-    dependsOn(subprojects.test)
-
-    additionalSourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories = files(subprojects.sourceSets.main.output)
-    executionData = files(subprojects.jacocoTestReport.executionData)
-
+jacocoTestReport {
     reports {
-        html.enabled = true
-        xml.enabled = true
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
     }
-
-    doFirst {
-        executionData = files(executionData.findAll { it.exists() })
-    }
-
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/com/joantolos/kata/hashtag/generator/HashtagGenerator**'])
+            fileTree(dir: it, exclude: ['**/com/joantolos/kata/scores/KataScoresApp**'])
         })
     }
 }
 
-build.finalizedBy(rootReport)
+bootJar {
+    mainClassName = 'com.joantolos.kata.hashtag.generator.HashTagGeneratorApp'
+    baseName = 'kata-scores'
+    version =  '1.0.0'
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-test')
+    compile('io.springfox:springfox-swagger2:2.9.2')
+    compile('io.springfox:springfox-swagger-ui:2.9.2')
+
+}
+
+build.finalizedBy(jacocoTestReport)

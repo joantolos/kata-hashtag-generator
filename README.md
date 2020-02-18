@@ -12,8 +12,8 @@ Also, we want the string to start from another static finite list of words but n
 
 Given:
 
-- profile.1.default: programming, java
-- profile.1.random: tdd, testing, framework, spring, kubernetes, microservice, cloud, aws, test, spock, junit
+- profile.1.default=java,programming
+- profile.1.random=tdd,testing,framework,spring,kubernetes,microservice,cloud,aws,test,spock,junit
 
 When I do a GET request like:
 
