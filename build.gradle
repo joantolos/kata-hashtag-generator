@@ -35,7 +35,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/com/joantolos/kata/scores/KataScoresApp**'])
+            fileTree(dir: it, exclude: ['**/com/joantolos/kata/hashtag/generator/HashTagGeneratorApp**'])
         })
     }
 }
