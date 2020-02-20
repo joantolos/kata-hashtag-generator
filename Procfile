@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar /build/libs/kata-hashtag-generator*.jar
+web: java $JAVA_OPTS -jar build/libs/kata-hashtag-generator-1.0.0.jar
