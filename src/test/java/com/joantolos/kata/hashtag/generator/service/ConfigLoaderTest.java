@@ -1,4 +1,4 @@
-package com.joantolos.kata.hashtag.generator;
+package com.joantolos.kata.hashtag.generator.service;
 
 import com.joantolos.kata.hashtag.generator.service.ConfigLoader;
 import org.junit.Assert;
