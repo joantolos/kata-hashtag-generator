@@ -1,5 +1,7 @@
 package com.joantolos.kata.hashtag.generator;
 
+import com.joantolos.kata.hashtag.generator.service.ConfigLoader;
+import com.joantolos.kata.hashtag.generator.service.GeneratorService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

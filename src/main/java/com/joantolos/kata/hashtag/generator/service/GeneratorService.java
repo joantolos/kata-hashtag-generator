@@ -1,4 +1,4 @@
-package com.joantolos.kata.hashtag.generator;
+package com.joantolos.kata.hashtag.generator.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
