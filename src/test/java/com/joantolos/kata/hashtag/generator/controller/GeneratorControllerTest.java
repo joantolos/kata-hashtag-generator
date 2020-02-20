@@ -21,7 +21,7 @@ public class GeneratorControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void shouldGetTokenWhenValidUser() throws Exception {
+    public void shouldGetHashTagsText() throws Exception {
         this.mockMvc
                 .perform(get("/1/3"))
                 .andDo(print())
