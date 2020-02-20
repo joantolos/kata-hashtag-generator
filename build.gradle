@@ -42,7 +42,7 @@ jacocoTestReport {
 
 bootJar {
     mainClassName = 'com.joantolos.kata.hashtag.generator.HashTagGeneratorApp'
-    baseName = 'kata-scores'
+    baseName = 'kata-hashtag-generator'
     version =  '1.0.0'
 }
 
