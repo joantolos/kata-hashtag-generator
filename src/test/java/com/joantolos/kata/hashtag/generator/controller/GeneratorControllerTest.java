@@ -27,4 +27,20 @@ public class GeneratorControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void shouldGetErrorWhenWrongProfile() throws Exception {
+        this.mockMvc
+                .perform(get("/99/3"))
+                .andDo(print())
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void shouldGetErrorWhenWrongRandomCounts() throws Exception {
+        this.mockMvc
+                .perform(get("/1/99"))
+                .andDo(print())
+                .andExpect(status().isInternalServerError());
+    }
 }

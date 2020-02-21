@@ -26,3 +26,28 @@ Then I retrieve a single text sentence like:
     #programming #java #aws #tdd #spring
 
 The first two words are the ones defined as default and the last three are randomly selected from the other list.
+
+# Try it
+
+You can try the application deployed on Heroku on the following end point:
+
+https://kata-hashtag-generator.herokuapp.com/{profileId}/{randomCount}
+
+Where:
+- profileId is the id of the profile that defines the default and random words
+- randomCount is the number of random words that I want to add
+
+These are the list of words included on the deployed app:
+
+    profile.1.default=java,programming
+    profile.1.random=tdd,testing,framework,spring,kubernetes,microservice,cloud,aws,test,spock,junit
+
+This call:
+
+https://kata-hashtag-generator.herokuapp.com/1/3
+
+Would provide something like this:
+
+    #java #programming #testing #junit #kubernetes
+    
+Where "java" and "programming" are the default words and "testing", "junit" and "kubernetes" are three of the random list.

@@ -1,5 +1,6 @@
 package com.joantolos.kata.hashtag.generator.service;
 
+import com.joantolos.kata.hashtag.generator.exception.InvalidProfileIdException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class ConfigLoaderTest {
     private ConfigLoader configLoader;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, InvalidProfileIdException {
         this.configLoader = new ConfigLoader(1);
     }
 
@@ -23,5 +24,10 @@ public class ConfigLoaderTest {
     @Test
     public void shouldLoadRandoms() {
         Assert.assertEquals("tdd", configLoader.getRandoms().get(0));
+    }
+
+    @Test(expected = InvalidProfileIdException.class)
+    public void shouldRaiseExceptionWhenWrongProfileId() throws IOException, InvalidProfileIdException {
+        new ConfigLoader(99);
     }
 }

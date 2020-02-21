@@ -1,5 +1,8 @@
 package com.joantolos.kata.hashtag.generator.service;
 
+import com.joantolos.kata.hashtag.generator.exception.HashTagsOverflowException;
+import com.joantolos.kata.hashtag.generator.exception.InvalidProfileIdException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ public class GeneratorService {
     private List<String> randoms;
     private Random random;
 
-    public GeneratorService(Integer profileId) throws IOException {
+    public GeneratorService(Integer profileId) throws IOException, InvalidProfileIdException {
         ConfigLoader configLoader = new ConfigLoader(profileId);
 
         this.random = new Random();
@@ -20,7 +23,10 @@ public class GeneratorService {
         this.randoms = configLoader.getRandoms();
     }
 
-    public String generate(int randomsCount) {
+    public String generate(int randomsCount) throws HashTagsOverflowException {
+        if (randomsCount > randoms.size()) {
+            throw new HashTagsOverflowException(randoms.size());
+        }
         return generateDefaults() + generateRandoms(randomsCount);
     }
 
@@ -32,9 +38,9 @@ public class GeneratorService {
         List<String> tempRandoms = new ArrayList<>();
 
         do {
-            String randomHashTag = randoms.get(random.nextInt(randoms.size()));
+            String randomHashTag = "#" + randoms.get(random.nextInt(randoms.size()));
             if (!tempRandoms.contains(randomHashTag)) {
-                tempRandoms.add("#" + randomHashTag);
+                tempRandoms.add(randomHashTag);
             }
         } while (tempRandoms.size() != randomsCount);
 
